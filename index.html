@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Student Registration</title>
+</head>
+<body>
+  <h2>Student Registration</h2>
+  <form action="http://localhost:3000/register" method="POST">
+    <label>First Name:</label><br>
+    <input type="text" name="firstName" required><br><br>
+
+    <label>password:</label><br>
+    <input type="password" name="password" required><br><br>
+
+    <label>Preferred Username:</label><br>
+    <input type="text" name="username" required><br><br>
+
+    <label>Department:</label><br>
+    <select name="department" required>
+      <option value="">--Select--</option>
+      <option value="Computer Science">Computer Science</option>
+      <option value="Engineering">Engineering</option>
+    </select><br><br>
+
+    <label>Level:</label><br>
+    <select name="level" required>
+      <option value="">--Select--</option>
+      <option value="100">100</option>
+      <option value="200">200</option>
+    </select><br><br>
+
+    <button type="submit">Register</button>
+  </form>
+  <script src="express.js"></script>
+</body>
+</html>

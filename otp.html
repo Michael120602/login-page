@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Enter OTP</title>
+</head>
+<body>
+  <form method="POST" action="/verify-otp" id="otpForm">
+  <h2>Enter OTP</h2>
+  <p>Please enter the 6-digit OTP sent to your registered email or phone number.</p>
+    <div class="otp-container">
+      <input type="text" maxlength="1" class="otp-box" name="otp[]" required />
+      <input type="text" maxlength="1" class="otp-box" name="otp[]" required />
+      <input type="text" maxlength="1" class="otp-box" name="otp[]" required />
+      <input type="text" maxlength="1" class="otp-box" name="otp[]" required />
+      <input type="text" maxlength="1" class="otp-box" name="otp[]" required />
+      <input type="text" maxlength="1" class="otp-box" name="otp[]" required />
+    </div>
+    <input type="hidden" name="otp" id="otpInput" />
+    <button type="submit">Verify OTP</button>
+  </form>
+
+  <script>
+    const form = document.getElementById('otpForm');
+    const otpInput = document.getElementById('otpInput');
+    const boxes = document.querySelectorAll('.otp-box');
+    boxes.forEach((box, idx) => {
+      box.addEventListener('input', () => {
+        if (box.value.length === 1 && idx < boxes.length - 1) {
+          boxes[idx + 1].focus();
+        }
+      });
+
+      box.addEventListener('keydown', (event) => {
+        if (event.key === 'Backspace' && !box.value && idx > 0) {
+          boxes[idx - 1].focus();
+        }
+      });
+
+      box.addEventListener('paste', (event) => {
+        event.preventDefault();
+        const paste = (e.clipboardData || window.clipboardData).getData('text');
+        const chars = paste.slice(0, boxes.length).split('');
+        chars.forEach((ch, i) => {
+          if (boxes[i]) boxes[i].value = ch;
+        });
+        if (chars.length === boxes.length) boxes[boxes.length - 1].focus();
+      });
+    });
+
+    // Combine OTP digits before submitting
+  form.addEventListener('submit', function(e) {
+    let otp = '';
+    boxes.forEach(box => otp += box.value);
+    otpInput.value = otp;
+  });
+  </script>
+</body>
+</html>
